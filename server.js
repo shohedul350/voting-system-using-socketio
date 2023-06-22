@@ -13,11 +13,11 @@ const io = require("socket.io")(server);
 
 // Initialize candidates
 const candidates = {
-    "0": { votes: 0, label: "JavaScript", color: randomRGB() },
-    "1": { votes: 0, label: "C#", color: randomRGB() },
-    "2": { votes: 0, label: "PHP", color: randomRGB() },
-    "3": { votes: 0, label: "Python", color: randomRGB() },
-    "4": { votes: 0, label: "Go", color: randomRGB() }
+    "0": { votes: 0, label: "JavaScript", color: "#8247F7" },
+    "1": { votes: 0, label: "C#", color: "#FA6B8D"},
+    "2": { votes: 0, label: "PHP", color: "#FF8245" },
+    "3": { votes: 0, label: "Python", color: "#658AFF" },
+    "4": { votes: 0, label: "Go", color: "#1F59FD" }
 };
 
 // On new client connection
@@ -39,9 +39,3 @@ io.on("connection", (socket) => {
         io.emit("update", candidates);
     });
 });
-
-// Generate a random RGB color
-function randomRGB() {
-    const r = () => Math.random() * 256 >> 0;
-    return `rgb(${r()}, ${r()}, ${r()})`;
-}

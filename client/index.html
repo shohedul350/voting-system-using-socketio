@@ -1,28 +1,118 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Real Time Voting App using Socket.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Real Time Voting App </title>
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
    
     <!-- Import dependencies -->
-    <!-- https://cdnjs.com/libraries/socket.io -->
-    <!-- https://cdnjs.com/libraries/Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js" integrity="sha512-gVG6WRMUYFaIdoocaxbqd02p3DUbhReTBWc7NTGB96i7vONrr7GuCZJHFFmkXEhpwilIWUnfRIMSlKaApwd/jg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 
     <!-- The title -->
-    <h1 style="text-align: center;">What is the best programming language out of these five?</h1>
+    <h1 style="text-align: center;" class="mt-3">Online Realtime Voting System</h1>
+
+    <h2 style="text-align: center;" class="mt-3">What is the best programming language out of these five?</h2>
+
+ 
+
+      <div class="container-fluid mt-3 mx-auto  ">
+          <div class="row">
+            <div class="col-lg-1 col-sm-0">
+
+            </div>
+              <div class="col-lg-2 col-sm-6">
+                  <div class="card gradient-1">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Javascript</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white" id="javascriptvotes">0</h2>
+                          </div>
+                          <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-2 col-sm-6">
+                  <div class="card gradient-2">
+                      <div class="card-body">
+                          <h3 class="card-title text-white" >C#</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white" id="cvotes">0</h2>
+                          </div>
+                  
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-2 col-sm-6">
+                  <div class="card gradient-3">
+                      <div class="card-body">
+                          <h3 class="card-title text-white" >PHP</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white" id="phpvotes">0</h2>
+                   
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-2 col-sm-6">
+                  <div class="card gradient-4">
+                      <div class="card-body">
+                          <h3 class="card-title text-white">Python</h3>
+                          <div class="d-inline-block">
+                              <h2 class="text-white" id="pythonvotes">0</h2>
+
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-lg-2 col-sm-6">
+                <div class="card gradient-4">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Go</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white"  id="govotes">0</h2>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-sm-0">
+
+            </div>
+          </div>
+          </div>
+
+
+
+        
+         
+
 
     <!-- The canvas -->
-    <canvas id="voteChart" style="height:50vh; width:100vw"></canvas>
+    <canvas id="voteChart" style="height:50vh; width:100vw" class="mt-5"></canvas>
 
-    <!-- The buttons -->
-    <button onclick="vote(0)">JavaScript</button>
-    <button onclick="vote(1)">C#</button>
-    <button onclick="vote(2)">PHP</button>
-    <button onclick="vote(3)">Python</button>
-    <button onclick="vote(4)">Go</button>
+
+    <div class="text-center mt-3">
+ <!-- The buttons -->
+ <button onclick="vote(0)" class="btn " style="background-color: #8247F7;">JavaScript</button>
+ <button onclick="vote(1)" class="btn " style="background-color: #FA6B8D;">C#</button>
+ <button onclick="vote(2)" class="btn " style="background-color: #FF8245;">PHP</button>
+ <button onclick="vote(3)" class="btn " style="background-color: #658AFF;">Python</button>
+ <button onclick="vote(4)" class="btn " style="background-color: #1F59FD;">Go</button>
+    </div>
+
+     <footer class="text-center py-4">
+            <p class="text-muted mb-0">© 2023 Develop by Shohedul & Sabbir. All rights reserved.</p>
+          </footer>
 
     <script>
 
@@ -36,9 +126,28 @@
               labels: ["Candidates"],
           },
           options: {
+    scales: {
+        yAxes: [{
+            ticks: {
+                  // min: 1 ,
+                beginAtZero: true,
+                precision: 0 
 
-          }
+            }
+        }]
+    }
+}
       });
+
+      let jsvotes= document.getElementById("javascriptvotes")
+      let cvotes= document.getElementById("cvotes")
+      let phpvotes= document.getElementById("phpvotes")
+      let pythonvotes= document.getElementById("pythonvotes")
+      let govotes= document.getElementById("govotes")
+ 
+  
+
+
 
       // Connect to the server it's (Here you want to change the port if you changed it in the server)
       const socket = io("localhost:5000");
@@ -46,12 +155,18 @@
       // On new vote update the chart
       socket.on("update", (candidates) => {
 
+        jsvotes.textContent =  candidates[0].votes
+        cvotes.textContent =  candidates[1].votes
+        phpvotes.textContent = candidates[2].votes
+        pythonvotes.textContent =  candidates[3].votes
+        govotes.textContent =  candidates[4].votes
+
         // Convert the candidates object into an array
         candidates = Object.entries(candidates);
+         
 
         // For each candidate
         for (const [key, candidate] of candidates) {
-
           // Update the vote if the candidate already exists if not create a new candidate and then update the vote
           if(typeof chart.data.datasets[key] == "undefined" && chart.data.datasets.length < candidates.length ) {
             chart.data.datasets.push({
@@ -60,6 +175,7 @@
                   data: [candidate.votes],
                   label: candidate.label
               });
+            
           } else  if(typeof chart.data.datasets[key] != "undefined") {
             chart.data.datasets[key].data = [candidate.votes];
           }
@@ -78,3 +194,7 @@
     </script>
   </body>
 </html>
+
+
+
+
