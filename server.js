@@ -1,7 +1,5 @@
 const express = require("express");
 const app = express();
-
-
 const port = 5000;
 
 // Host the front end
@@ -31,7 +29,6 @@ io.on("connection", (socket) => {
         if (candidates[index]) {
             candidates[index].votes += 1;
         }
-
         // Show the candidates in the console for testing
         console.log(candidates);
 
